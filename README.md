@@ -1,4 +1,6 @@
-# Water Drop 💦💦💦
+# Water Drop 💦💦💦  
+
+[![Pub](https://img.shields.io/pub/v/water_drop.svg)](https://pub.dartlang.org/packages/water_drop)
 
 A simple package for adding water drops to your Widgets!  
 
