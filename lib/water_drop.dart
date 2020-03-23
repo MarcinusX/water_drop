@@ -212,19 +212,17 @@ class _LightDot extends StatelessWidget {
     return Positioned(
       left: left + width / 4,
       top: top + height / 4,
-      child: SizedBox(
-        width: width / 4,
-        height: height / 4,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 3,
-                color: Colors.white.withOpacity(0.9),
-              ),
-            ],
-          ),
+      width: width / 4,
+      height: height / 4,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 3,
+              color: Colors.white.withOpacity(0.9),
+            ),
+          ],
         ),
       ),
     );
@@ -248,7 +246,7 @@ class _OvalShadow extends StatelessWidget {
       top: top,
       width: width,
       height: height,
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
             Radius.elliptical(width / 2, height / 2),
