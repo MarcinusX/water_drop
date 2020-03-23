@@ -1,7 +1,6 @@
 name: water_drop
-description: A package for creating water drops on top of your widgets.
+description: A package for creating water drops on top of your widgets. It lets you wrap any widget with a WaterDrop and create awesome visual effect!
 version: 1.0.0
-author: marcinszalek1@gmail.com
 homepage: https://github.com/MarcinusX/water_drop
 
 environment:
