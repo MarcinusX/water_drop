@@ -1,0 +1,16 @@
+name: water_drop
+description: A package for creating water drops on top of your widgets.
+version: 1.0.0
+author: marcinszalek1@gmail.com
+homepage: https://github.com/MarcinusX/water_drop
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
