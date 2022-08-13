@@ -12,19 +12,17 @@ class WaterDropParam {
   final double left;
 
   ///Width of a water drop
-  final double width;
+  final double? width;
 
   ///Height of a water drop
-  final double height;
+  final double? height;
 
   WaterDropParam(
-      {@required this.top,
-      @required this.left,
-      @required this.width,
-      @required this.height})
-      : assert(top != null),
-        assert(left != null),
-        assert(width != null && width > 0),
+      {required this.top,
+      required this.left,
+      required this.width,
+      required this.height})
+      : assert(width != null && width > 0),
         assert(height != null && height > 0);
 }
 
@@ -36,26 +34,24 @@ class WaterDrop extends StatelessWidget {
   final Widget child;
 
   const WaterDrop({
-    Key key,
-    @required this.params,
-    @required this.child,
-  })  : assert(params != null),
-        assert(child != null),
-        super(key: key);
+    Key? key,
+    required this.params,
+    required this.child,
+  }) : super(key: key);
 
   ///A factory for creating a single drop
   factory WaterDrop.single(
-          {Key key,
-          double left,
-          double top,
-          double height,
-          double width,
-          Widget child}) =>
+          {Key? key,
+          required double left,
+          required double top,
+          double? height,
+          double? width,
+          required Widget child}) =>
       WaterDrop(
-        child: child,
         params: [
           WaterDropParam(top: top, left: left, width: width, height: height),
         ],
+        child: child,
       );
 
   @override
@@ -64,11 +60,11 @@ class WaterDrop extends StatelessWidget {
       children: <Widget>[
         child,
         ...params.map((param) => _WaterDrop(
-              child: child,
               left: param.left,
               top: param.top,
               width: param.width,
               height: param.height,
+              child: child,
             )),
       ],
     );
@@ -76,14 +72,14 @@ class WaterDrop extends StatelessWidget {
 }
 
 class _WaterDrop extends StatefulWidget {
-  final double top;
-  final double left;
-  final double width;
-  final double height;
-  final Widget child;
+  final double? top;
+  final double? left;
+  final double? width;
+  final double? height;
+  final Widget? child;
 
   const _WaterDrop(
-      {Key key, this.child, this.top, this.width, this.left, this.height})
+      {Key? key, this.child, this.top, this.width, this.left, this.height})
       : super(key: key);
 
   @override
@@ -92,7 +88,7 @@ class _WaterDrop extends StatefulWidget {
 
 class __WaterDropState extends State<_WaterDrop> {
   ///Size of a child widget. It is needed to provide correct gradient on the drop.
-  Size totalSize;
+  Size? totalSize;
 
   @override
   Widget build(BuildContext context) {
@@ -110,8 +106,8 @@ class __WaterDropState extends State<_WaterDrop> {
 
     //used for determining alignments for gradient
     final alignmentModifier = Alignment(
-      widget.width / size.width,
-      widget.height / size.height,
+      widget.width! / size.width,
+      widget.height! / size.height,
     );
 
     //A child with gradient on it for light illusion
@@ -120,7 +116,7 @@ class __WaterDropState extends State<_WaterDrop> {
         gradient: LinearGradient(
           begin: alignment - alignmentModifier,
           end: alignment + alignmentModifier,
-          colors: [Colors.black, Colors.white],
+          colors: const [Colors.black, Colors.white],
         ),
         backgroundBlendMode: BlendMode.overlay,
       ),
@@ -143,8 +139,8 @@ class __WaterDropState extends State<_WaterDrop> {
               child: ClipPath(
                 clipper: OvalClipper(
                   center: center,
-                  width: widget.width * (1 - 0.04 * i),
-                  height: widget.height * (1 - 0.04 * i),
+                  width: widget.width! * (1 - 0.04 * i),
+                  height: widget.height! * (1 - 0.04 * i),
                 ),
                 clipBehavior: Clip.hardEdge,
                 child: childWithGradient,
@@ -164,8 +160,8 @@ class __WaterDropState extends State<_WaterDrop> {
 
   ///Get center of a drop
   Offset get center => Offset(
-        widget.left + widget.width / 2,
-        widget.top + widget.height / 2,
+        widget.left! + widget.width! / 2,
+        widget.top! + widget.height! / 2,
       );
 
   ///Map Center and Size to Alignment
@@ -176,9 +172,9 @@ class __WaterDropState extends State<_WaterDrop> {
 }
 
 class OvalClipper extends CustomClipper<Path> {
-  final double height;
-  final double width;
-  final Offset center;
+  final double? height;
+  final double? width;
+  final Offset? center;
 
   OvalClipper({this.center, this.width, this.height});
 
@@ -186,9 +182,9 @@ class OvalClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path()
       ..addOval(Rect.fromCenter(
-        center: center,
-        width: width,
-        height: height,
+        center: center!,
+        width: width!,
+        height: height!,
       ));
     return path;
   }
@@ -199,21 +195,21 @@ class OvalClipper extends CustomClipper<Path> {
 
 ///A white dot in top left corner
 class _LightDot extends StatelessWidget {
-  final double top;
-  final double left;
-  final double width;
-  final double height;
+  final double? top;
+  final double? left;
+  final double? width;
+  final double? height;
 
-  const _LightDot({Key key, this.top, this.left, this.width, this.height})
+  const _LightDot({Key? key, this.top, this.left, this.width, this.height})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: left + width / 4,
-      top: top + height / 4,
-      width: width / 4,
-      height: height / 4,
+      left: left! + width! / 4,
+      top: top! + height! / 4,
+      width: width! / 4,
+      height: height! / 4,
       child: DecoratedBox(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -231,12 +227,12 @@ class _LightDot extends StatelessWidget {
 
 ///A shadow below the drop
 class _OvalShadow extends StatelessWidget {
-  final double top;
-  final double left;
-  final double width;
-  final double height;
+  final double? top;
+  final double? left;
+  final double? width;
+  final double? height;
 
-  const _OvalShadow({Key key, this.top, this.left, this.width, this.height})
+  const _OvalShadow({Key? key, this.top, this.left, this.width, this.height})
       : super(key: key);
 
   @override
@@ -249,12 +245,12 @@ class _OvalShadow extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
-            Radius.elliptical(width / 2, height / 2),
+            Radius.elliptical(width! / 2, height! / 2),
           ),
           boxShadow: [
             BoxShadow(
               blurRadius: 4,
-              offset: Offset(4, 4),
+              offset: const Offset(4, 4),
               color: Colors.black.withOpacity(0.5),
             ),
           ],
